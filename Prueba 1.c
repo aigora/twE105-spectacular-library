@@ -1,43 +1,73 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 
 int main()
 {
+	system("color 7C");
 	int n;
 	char A, B, op1, op2, op3;
 	//Siendo A entrada, B salida.
 	char E, L, D, I;
-	//Siendo E estudio, L coger o dejar libro, D descanso, I informaciÛn.
+	//Siendo E estudio, L coger o dejar libro, D descanso, I informaci√≥n.
 	
-	printf("øEntras o sales?\n");
+	printf("Elige una opcion.\n");
+	printf("A - entrar	B - salir\n");
+	scanf("%c", &op1);
 	switch(op1)
 	{
 		case 'A':
-			printf("Bienvenidx, øque vienes a hacer?\n");
+			printf("Bienvenidx, que vienes a hacer?\n");
+			printf("E - Estudio   L - Libro   I - Informacion\n");
+			scanf(" %c", &op2);
 			switch(op2)
 			{
 				case 'E':
-					printf("Quedan %f plazas disponibles.\n", n);
-					//HabrÌa un for para contabilizar el n˙mero de plazas ocupadas.
+					printf("Quedan %d plazas disponibles.\n", n);
+					if(n == 0)
+					{
+						printf("Los alumnos suelen estar un promedio de 3 horas. Disculpe las molestias.\n");
+					}
+					else
+					{
+						printf("Introduzca su numero de matricula.\n");
+						//Guardar los n√∫meros de matr√≠cula en un fichero.
+						//Habr√≠a un for para contabilizar el n√∫mero de plazas ocupadas.
+						printf("Esperamos que aproveche su estudio.\n");
+					}
 					break;
 				case 'L':
 					printf("Mas adelante encontrara un ordenador para devolver, renovar o buscar libros.\n");
 					break;
 				case 'I':
-					printf("Mas adelante encontrara un puesto de informaciÛn.\n");
-			break;
+					printf("Mas adelante encontrara un puesto de informacion.\n");
+					break;
+				default:
+					printf("Lo siento, esa opcion no esta disponible.\n");
+					break;
+				
 			}
+			break;
+		
 			
 		case 'B':
-			printf("øQue deja de hacer?\n");
+			printf("Que deja de hacer?\n");
+			printf("E - Estudio   D - Descanso de estudio   L - Libro   I - Informacion\n");
+			scanf(" %c", &op3);
 			switch(op3)
 			{
 				case 'E':
+					printf("Introduzca su numero de matricula.\n");
+					//Quitar su numero de matricula del fichero.
 					printf("Esperamos que haya aprovechado su dia\n");
-					//HabrÌa un for para contabilizar el n˙mero de plazas disponibles.
+					//Habr√≠a un for para contabilizar el n√∫mero de plazas disponibles.
 					break;
 				case 'D':
+					printf("Introduzca su numero de matricula.\n");
+					//Guardar los numeros de matricula en otro fichero.
 					printf("Procura no tardar mas de 30 minutos, es posible que su sitio quede libre en caso contrario.\n");
-					//PodrÌamos aÒadir un temporizador, es opcional.
+					//Podr√≠amos a√±adir un temporizador, es opcional.
+					//Si no regresa en 30 minutos, se quitar√° su matr√≠cula del fichero. As√≠ se desocupar√° su sitio.
 					break;
 				case 'L':
 					printf("Esperamos haberle servido de ayuda.\n");
@@ -45,10 +75,17 @@ int main()
 				case 'I':
 					printf("Esperamos haberle servido de ayuda.\n");
 					break;
-			break;
+				default:
+					printf("Lo siento, esa opcion no esta disponible.\n");
+					break;
+				
 			printf("Gracias por su visita, esperamos verle pronto\n");
 			}
-		
+			break;	
+	
+		default:
+			printf("Lo siento, esa opcion no esta disponible.\n");
+			break;
 	}
 
 	
