@@ -6,6 +6,7 @@ Gestión de bibliotecas
 
 - Cristian Esteban Gómez @CristianEstebanGomez
 - Blanca Expósito González @blancaexpositogonzalez
+- Gonzalo de la Fuente @gonzalo171
 
 ## Objetivos del trabajo
 
