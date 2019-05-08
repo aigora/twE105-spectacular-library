@@ -1,3 +1,4 @@
+//ES NECESARIO ESCOGER LA OPCION SALIR PARA QUE SE GUARDEN LOS DATOS
 #define _CRT_SECURE_NO_WARNINGS
 #define NALUMNOS 100 //Número total de alumnos que caben en la biblioteca
 #include<stdio.h>
@@ -17,7 +18,7 @@ struct TAux { //Auxiliar para coger datos
 
 //FUNCIONES
 //-> Funciones para actualizar ficheros:
-void actualizarFicheroUsuarios(int dim,int alumno,struct Talumno alumnos[]);
+void actualizarFicheroAlumnos(int dim, int alumno, struct Talumno alumnos[]);
 //->Funciones para que los datos introducidos sean validos:
 void matriculaValida(char matricula[5]);
 
@@ -62,9 +63,9 @@ int main()
 			printf("\tIntroduzca su numero de matricula:\n");
 							matriculaValida(aux.matricula);
 							getchar();
-		for(k = 0; k < nusu; k++) {
-			comp1 = strcmp(aux.matricula, usu[k].matricula); //Compara entre todos los usuarios ya registrados
-			if(comp1 == 0) {
+				for(k = 0; k < nusu; k++) {
+				comp1 = strcmp(aux.matricula, usu[k].matricula); //Compara entre todos los usuarios ya registrados
+				if(comp1 == 0) {
 				break;
 			}
 		}
@@ -73,18 +74,31 @@ int main()
 		
 			if(nusu == NALUMNOS) { //Si el numero de alumnos es igual al número máximo de ellos
 			printf("\tNo queda sitio en la biblioteca, no pueden entrar mas alumnos\n");
+			printf("\tLos alumnos suelen estar un promedion de 3 horas. Intentelo mas tarde. Disculpe las molestias.\n");
 			}
+			
 			else {
-				strcpy(usu[nusu].matricula, aux.matricula); //Guarda la matrícula nueva en los alumnos
-				
-				printf("\n\t>Usted ha sido registradx como: \n\t-%s\n\t", usu[nusu].matricula);
+				strcpy(usu[nusu].matricula, aux.matricula); //guarda la matrícula nueva en alumnos
+				printf("\n\tUsted ha sido registradx como:\n\t-%d\n\n ", usu[nusu].matricula);
+				system("pause");
+				usu[nusu].sesion = 1;
+				k = nusu;									
+				nusu = nusu++; //Como se ha registrado un alumno aumentamos uno el número de alumnos
+				for (i = 0; i < nusu; i++) {
+					actualizarFicheroAlumnos(nusu, i, usu);
 			}
 		}
 	}
+			else {
+				printf("Ya existe un usuario con ese nombre, intente con otro\n");
+			}
+		}
 	
-	while (comp1 == 0); //Se repite mientras se introduzcan matrículas ya registrada
+			while (comp1 == 0); //Se repite mientras se introduzcan matrículas ya registrada
 	
 }
+		Sleep(10);
+		break;
 	
 				case 'L':
 				case 'l':
@@ -114,11 +128,38 @@ int main()
 			{
 				case 'E':
 				case 'e':
-					printf("Introduzca su numero de matricula.\n");
-					//Quitar su numero de matricula del fichero.
-					printf("Esperamos que haya aprovechado su dia\n");
-					//Habría un for para contabilizar el número de plazas disponibles.
-					break;
+					if (usu[k].sesion == 1) {
+						printf("La sesion de %s esta abierta, salga para registrar un nuevo usuario\n", usu[k].matricula);
+						Sleep(10);
+				}
+				
+					else {
+					do {
+			printf("\tIntroduzca su numero de matricula:\n");
+							matriculaValida(aux.matricula);
+							getchar();
+		for(j = k; j > nusu; j--) {
+			comp1 = strcmp(aux.matricula, usu[j].matricula); //Compara entre todos los usuarios ya registrados
+			if(comp1 != 0) {
+				break;
+			}
+		}
+		
+		if(comp1 == 0) { //Si la matrícula estaba registrada
+	
+				strcpy_s(usu[nusu].matricula, 5, aux.matricula); //Guarda la matrícula nueva en los alumnos
+				
+				printf("\n\t>Usted ha sido registradx como: \n\t-%s\n\t", usu[nusu].matricula);
+				printf("\n\tEsperamos verle pronto.\n");
+			}
+			else {
+				printf("\n\tEste numero de matricula es invalido, no esta registrado.\n");
+			}
+		}
+		
+		while (comp1 != 0); //Se repite mientras se introduzcan matrículas no registradas
+		
+	}
 				case 'D':
 				case 'd':
 					printf("Introduzca su numero de matricula.\n");
@@ -138,19 +179,17 @@ int main()
 				default:
 					printf("Lo siento, esa opcion no esta disponible.\n");
 					break;
-				
-			printf("Gracias por su visita, esperamos verle pronto\n");
 			}
-			break;	
-	
-		default:
+			
+				default:
 			printf("Lo siento, esa opcion no esta disponible.\n");
 			break;
-	}
+			
+			}
+				
+			}	
 
-	
-}
-
+//FUNCIONES
 void matriculaValida(char matricula[5]) {
 	int i, contador, longitud, final;
 
@@ -163,7 +202,7 @@ void matriculaValida(char matricula[5]) {
 		else {
 			for (i = 0; matricula[i] != '\0'; i++) {
 				
-				if ((matricula[i]> 'a' || matricula[i]< 'z')&& (matricula[i]> 'A' || matricula[i]< 'Z')) { //Hay letras
+				if ((matricula[i]< 'a' || matricula[i]> 'z') && (matricula[i]< 'A' || matricula[i]> 'Z')) { //No hay letras
 					final = -1;
 				}
 				else {
@@ -174,16 +213,54 @@ void matriculaValida(char matricula[5]) {
 		}
 
 		if (final == -2) {
-			printf("La matricula debe tener de 5 caracteres, introduzca de nuevo un numero de matricula\n");
+			printf("La matricula debe tener de 5 caracteres, introduzca de nuevo un numero de matricula:\n");
 		}
-		else if (final == -1) {
-			printf("La matricula no puede contener letras, introduzca de nuevo un numero de matricula\n");
+		else if (final == 1) {
+			printf("La matricula no puede contener letras, introduzca de nuevo un numero de matricula:\n");
 		}
 
 	} while (final != 1);
 }
-	void titulo() {
-/*
+//PARA QUE FUNCIONE 
+/*for (i = 0; i < nusu; i++) {
+		actualizarFicheroAlumnos(nusu, i, usu);
+	}
+*/
+void actualizarFicheroAlumnos(int dim, int alumno, struct Talumno alumnos[]) { //dim numero de alumnos
+	FILE*fichero;
+	errno_t error;
+	
+	int i;
+	if (alumno == 0) {
+		error = fopen_s(&fichero, "alumnos.txt", "w");//Abrir reescribiendo
+		if (error == 0) {//Si no hay error
+			printf("Guardando datos...\n");
+		}
+		else {//Si hay error
+			printf("Ha habido un error %d para guardar los datos.\n", error);
+			return; // return sale del programa
+		}
+
+		fprintf(fichero, "%d\n", dim);//Imprime el numero de usuarios alcanzado
+
+		fclose(fichero);
+    }
+	error = fopen_s(&fichero, "alumnos.txt", "a");//Abrir añadiendo
+	if (error == 0) {//Si no hay error
+		//printf("Guardando datos...\n");
+	}
+	else {//Si hay error
+		printf("Ha habido un error %d para guardar los datos.\n", error);
+		return; // return sale del programa
+	}
+		fprintf(fichero, "%d\t", alumnos[alumno].matricula);
+		fprintf(fichero, "%d\t", alumnos[alumno].sesion);
+	
+	fclose(fichero);
+
+}
+
+void logo() {
 printf(" ______  _________ ______   _       _________ _______ _________ _______  _______  _______        _______ _________ _______ _________ ______  _________\n");
 printf("(  ___ )  __   __/(  ___ ) ( )       __   __/(  ___  ) __   __/(  ____/ (  ____/ (  ___  )      (  ____/  __   __/(  ____/  __   __/(  __     __   __/\n");
 printf("| (   ) )   ) (   | (   ) )| |         ) (   | (   ) |   ) (   | (      | (      | (   ) |      | (         ) (   | (         ) (   | (     )   ) (   \n");
@@ -192,8 +269,4 @@ printf("|  __ (     | |   |  __ (  | |         | |   | |   | |   | |   |  __)   
 printf("| (    )    | |   | (    ) | |         | |   | |   | |   | |   | (      | |      | (   ) |      | (         | |         ) |   | |   | |   ) |   | |   \n");
 printf("| )___) )___) (___| )___) )| (_____ ___) (___| (___) |   | |   | (_____ | (_____ | )   ( |      | (_____    | |    _____) |___) (___| (__/  )___) (___\n");
 printf("|/  ___/  _______/|/  ___/ (_______/ _______/(_______)   )_(   (_______/(_______/|/      |      (_______/   )_(   /_______) _______/(______/  _______/\n");
-*/
-}
-
-	
 }
