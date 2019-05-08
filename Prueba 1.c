@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 // TITULO
-void titulo();
+//void titulo();
 
 int main()
 {
