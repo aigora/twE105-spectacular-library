@@ -5,6 +5,11 @@
 int main()
 {
 	system("color 7C");
+	struct Biblioteca
+		{
+		char matricula[5];
+ 		};
+ 		
 	int n;
 	char A, B, op1, op2, op3;
 	//Siendo A entrada, B salida.
@@ -12,13 +17,16 @@ int main()
 	//Siendo E estudio, L coger o dejar libro, D descanso, I información.
 	
 	printf("Elige una opcion.\n");
-	printf("A - entrar	B - salir\n");
+	printf("A - entrar\n");	
+	printf("B - salir\n");
 	scanf("%c", &op1);
 	switch(op1)
 	{
 		case 'A':
 			printf("Bienvenidx, que vienes a hacer?\n");
-			printf("E - Estudio   L - Libro   I - Informacion\n");
+			printf("E - Estudio\n");  
+			printf("L - Libro\n");
+			printf("I - Informacion\n");
 			scanf(" %c", &op2);
 			switch(op2)
 			{
@@ -52,7 +60,10 @@ int main()
 			
 		case 'B':
 			printf("Que deja de hacer?\n");
-			printf("E - Estudio   D - Descanso de estudio   L - Libro   I - Informacion\n");
+			printf("E - Estudio\n");
+			printf("D - Descanso de estudio\n");
+			printf("L - Libro\n");
+			printf("I - Informacion\n");
 			scanf(" %c", &op3);
 			switch(op3)
 			{
