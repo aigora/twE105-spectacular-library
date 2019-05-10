@@ -125,10 +125,10 @@ int main()
 		case 'B':
 		case 'b':
 			printf("Que deja de hacer?\n");
-			printf("E - Estudio\n");
+			printf("E - Sala de estudio\n");
 			printf("D - Descanso de estudio\n");
-			printf("L - Libro\n");
-			printf("I - Informacion\n");
+			printf("L - Dejar, coger o renovar libro\n");
+			printf("I - Solicitar informacion\n");
 			scanf(" %c", &op3);
 			switch(op3)
 			{
@@ -142,16 +142,16 @@ int main()
 					else {
 					do {
 			printf("\tIntroduzca su numero de matricula:\n");
-							matriculaValida(aux.matricula);
-							getchar();
-		for(j = k; j > nusu; j--) {
-			comp1 = strcmp(aux.matricula, usu[j].matricula); //Compara entre todos los usuarios ya registrados
-			if(comp1 != 0) {
-				break;
+					matriculaValida(aux.matricula);
+					getchar();
+					for(j = k; j > nusu; j--) {
+					comp1 = strcmp(aux.matricula, usu[j].matricula); //Compara entre todos los usuarios ya registrados
+					if(comp1 == 0) {
+					break;
 			}
 		}
 		
-		if(comp1 == 0) { //Si la matrícula estaba registrada
+		if(comp1 != 0) { //Si la matrícula estaba registrada
 	
 				strcpy_s(usu[nusu].matricula, 5, aux.matricula); //Guarda la matrícula nueva en los alumnos
 				
@@ -166,6 +166,7 @@ int main()
 		while (comp1 != 0); //Se repite mientras se introduzcan matrículas no registradas
 		
 	}
+	break;
 				case 'D':
 				case 'd':
 					printf("Introduzca su numero de matricula.\n");
@@ -186,6 +187,7 @@ int main()
 					printf("Lo siento, esa opcion no esta disponible.\n");
 					break;
 			}
+			break;
 			
 				default:
 			printf("Lo siento, esa opcion no esta disponible.\n");
