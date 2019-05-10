@@ -57,6 +57,8 @@ do {
 			printf("L - Dejar, coger o renovar un libro\n");
 			printf("C - Solicitar informacion\n");
 			scanf(" %c", &op2);
+			do {
+				
 			switch(op2)
 			{
 				case 'E':
@@ -105,7 +107,7 @@ do {
 				printf("Ya existe un usuario con ese nombre, intente con otro\n");
 			}
 		}
-				while (comp1 == 0); //Se repite mientras se introduzcan matrículas ya registrada
+				while (comp1 != 0); //Se repite mientras se introduzcan matrículas ya registrada
 	}
 		Sleep(10);
 		
@@ -125,6 +127,9 @@ do {
 				
 			}
 			break;
+		}
+			while((op2 != 'E') && (op2 != 'L') && (op2 != 'C') && (op2 != 'e') && (op2 != 'l') && (op2 != 'c'));
+	
 		
 			
 		case 'B':
@@ -135,6 +140,8 @@ do {
 			printf("L - Dejar, coger o renovar libro\n");
 			printf("I - Solicitar informacion\n");
 			scanf(" %c", &op3);
+			do {
+				
 			switch(op3)
 			{
 				case 'E':
@@ -168,7 +175,7 @@ do {
 			}
 		}
 		
-		while (comp1 != 0); //Se repite mientras se introduzcan matrículas no registradas
+		while (comp1 == 0); //Se repite mientras se introduzcan matrículas no registradas
 		
 	}
 	break;
@@ -224,19 +231,21 @@ do {
 					printf("Lo siento, esa opcion no esta disponible.\n");
 					break;
 			}
-			
 			break;
+			}
+			while((op2 != 'E') && (op2 != 'L') && (op2 != 'C') && (op2 != 'e') && (op2 != 'l') && (op2 != 'c'));
 			
 				default:
 			printf("Lo siento, esa opcion no esta disponible. Elija de nuevo una opcion:\n");
-			
 			break;
 			
 			}
 		
 			}
 			
-	while(op1 != 'a' && op1 != 'b' && op1 != 'a' && op1 != 'b');
+	while((op1 != 'A') && (op1 != 'B') && (op1 != 'a') && (op1 != 'b'));
+	system("pause");
+	return 0;
 		}
 				
 			
