@@ -1,4 +1,4 @@
-//ES NECESARIO ESCOGER LA OPCION SALIR PARA QUE SE GUARDEN LOS DATOS
+/ES NECESARIO ESCOGER LA OPCION SALIR PARA QUE SE GUARDEN LOS DATOS
 #define _CRT_SECURE_NO_WARNINGS
 #define NALUMNOS 100 //Número total de alumnos que caben en la biblioteca
 #include<stdio.h>
@@ -21,12 +21,15 @@ struct TAux { //Auxiliar para coger datos
 void actualizarFicheroAlumnos(int dim, int alumno, struct Talumno alumnos[]);
 //->Funciones para que los datos introducidos sean validos:
 void matriculaValida(char matricula[5]);
+//->Funciones que contienen menus y logotipos
+int SesionAbierta(int dim, struct Talumno * alumnos); //1:ABIERTA 0:CERRADA
+void logo();
 
 int main()
 {
 	system("color 7C");
 
-	int n;
+	int n, alumno, opcion;
 	int j, k = 0, i, comp1, comp2, auxx = 0, nusu = 0; // case 'E': variables para el registro y entrada de usuarios
 	char A, a, B, b, op1, op2, op3;
 	//Siendo A entrada, B salida.
@@ -52,18 +55,20 @@ int main()
 			{
 				case 'E':
 				case 'e':
-					if (usu[k].sesion == 1) {
-						printf("La sesion de %s esta abierta, salga para registrar un nuevo usuario\n", usu[k].matricula);
-						Sleep(10);
-				}
-				
+					k = SesionAbierta(nusu, usu);
+					if(k!=-1){
+							printf("Ya hay una sesión abierta. La cuenta de %d esta abierta\n", usu[k].matricula);
+							Sleep(10);
+							usu[k].sesion= 1;
+					}					
+					
 					else {
-	printf("Para entrar necesitamos su numero de matricula\n", usu[k].matricula);
+	printf("Para entrar necesitamos sus datos.\n", usu[k].matricula);
 	do {
-			printf("\tIntroduzca su numero de matricula:\n");
-							matriculaValida(aux.matricula);
-							getchar();
-				for(k = 0; k < nusu; k++) {
+			printf("Introduzca su numero de matricula:\n");
+			matriculaValida(aux.matricula);
+			getchar();
+			for(k = 0; k < nusu; k++) {//La k se queda como la variable del alumno que está dentro
 				comp1 = strcmp(aux.matricula, usu[k].matricula); //Compara entre todos los usuarios ya registrados
 				if(comp1 == 0) {
 				break;
@@ -79,7 +84,7 @@ int main()
 			
 			else {
 				strcpy(usu[nusu].matricula, aux.matricula); //guarda la matrícula nueva en alumnos
-				printf("\n\tUsted ha sido registradx como:\n\t-%d\n\n ", usu[nusu].matricula);
+				printf("\n\tUsted ha sido registradx como: %d\n", usu[nusu].matricula);
 				system("pause");
 				usu[nusu].sesion = 1;
 				k = nusu;									
@@ -184,11 +189,10 @@ int main()
 				default:
 			printf("Lo siento, esa opcion no esta disponible.\n");
 			break;
-			
 			}
-				
-			}	
-
+		
+			}
+			
 //FUNCIONES
 void matriculaValida(char matricula[5]) {
 	int i, contador, longitud, final;
@@ -219,7 +223,7 @@ void matriculaValida(char matricula[5]) {
 			printf("La matricula no puede contener letras, introduzca de nuevo un numero de matricula:\n");
 		}
 
-	} while (final != 1);
+	} while (final != -1);
 }
 //PARA QUE FUNCIONE 
 /*for (i = 0; i < nusu; i++) {
@@ -258,6 +262,25 @@ void actualizarFicheroAlumnos(int dim, int alumno, struct Talumno alumnos[]) { /
 	
 	fclose(fichero);
 
+}
+
+int SesionAbierta( int dim, struct Talumno * alumnos)  {
+	int opcion=0,i;
+	if (dim == 0) {//Si no hay usuarios registrados
+		opcion = -1;
+	}
+	else {
+		for (i = 0; i < dim; i++) {
+			if (alumnos[i].sesion == 1) {//Cuando hay una sesion abierta se guarda en opcion que es lo que devuelve la funcion y se sale de bucle
+				opcion = i;
+				break;
+			}
+			else {
+				opcion = -1;
+			}
+		}
+	}
+	return opcion;
 }
 
 void logo() {
