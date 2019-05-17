@@ -37,8 +37,9 @@ void delay(int secs);
 //Fecha y hora del sistema
 void captar_tiempo(char fecha_hora[]);
 //funcion del menu principal
-int menu(menu);
-int menu2(menu2);
+void menu();
+void menu2();
+void menu3();
 
 int main()
 {
@@ -66,9 +67,11 @@ do {
 
 	switch(op1)
 	{
-	        case '0':
-	    	        printf("Has salido del programa.\n");
-		        return 0;
+	    case '0':
+	    	printf("Has salido del programa.\n");
+		    return 0;
+		    break;
+		    
 		case 'A':
 		case 'a':
 			menu2();
@@ -161,11 +164,7 @@ do {
 									
 		case 'B':
 		case 'b':
-			printf("Que deja de hacer?\n");
-			printf("E - Sala de estudio\n");
-			printf("D - Descanso de estudio\n");
-			printf("L - Dejar, coger o renovar libro\n");
-			printf("I - Solicitar informacion\n");
+			menu3();
 			scanf(" %c", &op3);
 			do {
 				
@@ -383,21 +382,30 @@ void delay(int secs) {
 	int t;
 	for(t = (time(NULL) + secs); time(NULL) != t; time(NULL));
 }
- int menu(){
+
+void menu(){
     
-	
 	printf("Elige una opcion.\n");
-	printf("A - entrar\n");	
-	printf("B - salir\n");
+	printf("A - Entrar\n");	
+	printf("B - Salir\n");
 	printf("0 - Salir del programa\n");
  }
-int menu2(){                        
+ 
+void menu2(){                        
 printf("Que vienes a hacer?\n");
 			printf("E - Sala de estudio\n"); 
 			printf("L - Dejar, coger o renovar un libro\n");
 			printf("C - Solicitar informacion\n");
 			printf("V - volver al menu principal\n");
+}
 
+void menu3(){                        
+printf("Que dejas de hacer?\n");
+			printf("E - Sala de estudio\n"); 
+			printf("L - Dejar, coger o renovar un libro\n");
+			printf("D - Descanso de estudio\n");
+			printf("C - Solicitar informacion\n");
+			printf("V - Volver al menu principal\n");
 }
 
 int LOGOTIPO(struct Talumno alumno[])
