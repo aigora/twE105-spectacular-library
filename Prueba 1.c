@@ -81,9 +81,9 @@ do {
 					k = SesionAbierta(nusu, usu);
 					if(k!=-1){
 						printf("Ya hay una sesión abierta. La cuenta de %d esta abierta\n", usu[k].matricula);
-						Sleep(10);
-						usu[k].sesion= 1;
-					}					
+						Sleep(800);
+						usu[k].sesion = 1;
+					}
 					
 					else {
 						printf("Para entrar necesitamos sus datos.\n", usu[k].matricula);
@@ -91,23 +91,21 @@ do {
 							printf("Introduzca su numero de matricula:\n");
 							matriculaValida(aux.matricula);
 							getchar();
-							for(k = 0; k < nusu; k++) {//La k se queda como la variable del alumno que está dentro
-								comp1 = strcmp(aux.matricula, usu[k].matricula); //Compara entre todos los usuarios ya registrados
-								if(comp1 != 0) {
-									break;
+							while(k != nusu) {
+								comp1 = strcmp(aux.matricula, usu[k].matricula);
 								}
-							}
-		
+								
 							if(comp1 == 0) { //Si no hay nadie más registrado con ese número de matrícula
 		
-								if(nusu == NALUMNOS) { //Si el numero de alumnos es igual al número máximo de ellos
+								if(nusu == NALUMNOS) { //Si el número de alumnos es igual al número máximo de ellos
 									printf("\tNo queda sitio en la biblioteca, no pueden entrar mas alumnos\n");
 									printf("\tLos alumnos suelen estar un promedion de 3 horas. Intentelo mas tarde. Disculpe las molestias.\n");
 								}
 			
 								else {
 									strcpy_s(usu[nusu].matricula, 5, aux.matricula); //guarda la matrícula nueva en alumnos
-									printf("Usted ha sido registradx como: %d\n", usu[nusu].matricula);
+									printf("Usted ha sido registradx como: %d\n");
+									scanf("%d", usu[nusu].matricula);
 									printf("Esperamos que aproveche su estudio.\n");
 									system("pause");
 									usu[nusu].sesion = 1;
@@ -122,8 +120,9 @@ do {
 								printf("Ya existe un usuario con ese nombre, intente con otro\n");
 							}	
 						}
-						while (comp1 != 0); //Se repite mientras se introduzcan matrículas ya registrada
+						while (comp1 != 0); //Se repite mientras se introduzcan matrículas ya registradas
 					}
+					
 					Sleep(10);
 		
 					break;
@@ -175,12 +174,9 @@ do {
 							printf("\tIntroduzca su numero de matricula:\n");
 							matriculaValida(aux.matricula);
 							getchar();
-							for(j = k; j > nusu; j--) {
-								comp1 = strcmp(aux.matricula, usu[j].matricula); //Compara entre todos los usuarios ya registrados
-								if(comp1 == 0) {
-									break;
+							while(k == nusu) {
+								comp1 = strcmp(aux.matricula, usu[k].matricula);
 								}
-							}
 		
 							if(comp1 != 0) { //Si la matrícula estaba registrada
 	
@@ -207,14 +203,11 @@ do {
 						printf("Introduzca su numero de matricula:\n");
 						matriculaValida(aux.matricula);
 						getchar();
-						for(k = 0; k < nusu; k++) {//La k se queda como la variable del alumno que está dentro
-							comp1 = strcmp(aux.matricula, usu[k].matricula); //Compara entre todos los usuarios ya registrados
-							if(comp1 == 0) {
-								break;
-							}
+						while(k == nusu) {
+							comp1 = strcmp(aux.matricula, usu[k].matricula);
 						}
-		
-						if(comp1 != 0) { //Si hay nadie más registrado con ese número de matrícula
+							
+						if(comp1 != 0) { //Si hay alguien registrado con ese número de matrícula
 				
 							strcpy_s(usu[nusu].matricula, 5, aux.matricula); //guarda la matrícula nueva en alumnos
 							printf("Usted ha sido registrado como: %i", usu[nusu].matricula);
@@ -351,7 +344,7 @@ void actualizarFicheroAlumnos(int dim, int alumno, struct Talumno alumnos[]) { /
 }
 
 int SesionAbierta( int dim, struct Talumno * alumnos)  {
-	int opcion=0,i;
+	int opcion = 0, i;
 	if (dim == 0) {//Si no hay alumnos registrados
 		opcion = -1;
 	}
