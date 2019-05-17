@@ -36,6 +36,9 @@ int LOGOTIPO(struct Talumno alumno[]); //Logotipo inicial que tambien lee el fic
 void delay(int secs);
 //Fecha y hora del sistema
 void captar_tiempo(char fecha_hora[]);
+//funcion del menu principal
+int menu(menu);
+int menu2(menu2);
 
 int main()
 {
@@ -56,26 +59,32 @@ int main()
  	system ("pause");
  	
 	nusu = LOGOTIPO(usu); //Logotipo y obtenemos toda la informacion del fichero alumnos
-	printf("Elige una opcion.\n");
-	printf("A - entrar\n");	
-	printf("B - salir\n");
+	menu();
 	scanf("%c", &op1);
 	
 do {
 
 	switch(op1)
 	{
+	        case '0':
+	    	        printf("Has salido del programa.\n");
+		        return 0;
 		case 'A':
 		case 'a':
-			printf("Que vienes a hacer?\n");
-			printf("E - Sala de estudio\n"); 
-			printf("L - Dejar, coger o renovar un libro\n");
-			printf("C - Solicitar informacion\n");
+			menu2();
 			scanf(" %c", &op2);
 			do {
 				
 			switch(op2)
 			{
+			    case 'v':
+			    case 'V':
+			    	op2 = 0;
+			    	op1 = 0;
+			    	system("cls");
+			     menu();
+			    	break;
+		
 				case 'E':
 				case 'e':
 					k = SesionAbierta(nusu, usu);
@@ -373,6 +382,22 @@ void captar_tiempo(char * fecha)
 void delay(int secs) {
 	int t;
 	for(t = (time(NULL) + secs); time(NULL) != t; time(NULL));
+}
+ int menu(){
+    
+	
+	printf("Elige una opcion.\n");
+	printf("A - entrar\n");	
+	printf("B - salir\n");
+	printf("0 - Salir del programa\n");
+ }
+int menu2(){                        
+printf("Que vienes a hacer?\n");
+			printf("E - Sala de estudio\n"); 
+			printf("L - Dejar, coger o renovar un libro\n");
+			printf("C - Solicitar informacion\n");
+			printf("V - volver al menu principal\n");
+
 }
 
 int LOGOTIPO(struct Talumno alumno[])
