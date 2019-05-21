@@ -6,13 +6,7 @@
 #include<string.h>
 #include<Windows.h>
 #include <conio.h>
-#include <time.h>
-//DUDAS
-//No funcionan bien los bucles do - while para que vuelva a empezar en caso de equivocación
-//No registra bien la matrícula
-//Temporizador
-//Opción volver atrás
-
+#include <time.h> //Para el temporizador
 
 struct Talumno { //Estructura que guarda los datos de cada alumno
 	char matricula[5];
@@ -103,7 +97,7 @@ int main()
 						printf("Para entrar necesitamos sus datos.\n");
 						do {
 			
-						printf("Introduzca su numero de matricula\n");
+						printf("Introduzca su numero de matricula\n"); //Hay que introducir 2 veces la matrícula para que la tenga en cuenta, no entendemos por qué
 						scanf_s(" %d", &aux.matricula, 5);
 						matriculaValida(aux.matricula);
 						for (k = 0; k < nusu; k++) { //La k se queda como la variable del usuario que está dentro
